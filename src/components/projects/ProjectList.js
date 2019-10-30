@@ -1,12 +1,18 @@
 import React from 'react';
 import ProjectSummary from './ProjectSummary';
+import { Link } from 'react-router-dom';
+
 
 const ProjectList = ({projects}) => {
     const summary = [];
 
     if(projects) {
         for (let key in projects) {
-            summary.push(<ProjectSummary project={projects[key]} key={key} />)
+            summary.push(
+                <Link to={`/project/${key}`} key={key}>
+                    <ProjectSummary project={projects[key]}  />
+                </Link>
+                )
         }
     }
     return (
