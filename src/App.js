@@ -6,22 +6,40 @@ import ProjectDetails from './components/projects/ProjectDetails';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
 import CreateProject from "./components/projects/CreateProject";
+import {connect} from "react-redux";
 
-function App() {
-  return (
-      <BrowserRouter>
-          <div className="App">
-              <Navbar/>
-              <Switch>
-                  <Route exact path='/' component={Dashboard}/>
-                  <Route path='/project/:id' component={ProjectDetails}/>
-                  <Route path='/signin' component={SignIn}/>
-                  <Route path='/signup' component={SignUp}/>
-                  <Route path='/create' component={CreateProject}/>
-              </Switch>
-          </div>
-      </BrowserRouter>
-  );
-}
+const App = (props) => {
+    const { auth } = props;
 
-export default App;
+    if(auth.isLoaded) {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <Navbar/>
+                    <Switch>
+                        <Route exact path='/' component={Dashboard}/>
+                        <Route path='/project/:id' component={ProjectDetails}/>
+                        <Route path='/signin' component={SignIn}/>
+                        <Route path='/signup' component={SignUp}/>
+                        <Route path='/create' component={CreateProject}/>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        );
+    } else {
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
+
+};
+
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+};
+export default connect(mapStateToProps)(App);
