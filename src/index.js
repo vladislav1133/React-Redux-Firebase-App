@@ -8,10 +8,10 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import {reduxFirestore, getFirestore, createFirestoreInstance} from 'redux-firestore';
 import fbConfig from './configs/fbConfig'
-import {ReactReduxFirebaseProvider} from "react-redux-firebase";
+import {ReactReduxFirebaseProvider, getFirebase} from "react-redux-firebase";
 
 const middleware = [
-    thunk.withExtraArgument({getFirestore})
+    thunk.withExtraArgument({getFirestore, getFirebase})
 ];
 const store = createStore(rootReducer,
     compose(
@@ -23,14 +23,14 @@ const store = createStore(rootReducer,
 // react-redux-firebase config
 const rrfConfig = {
     userProfile: 'users',
-    // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
+    useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 
 const rrfProps = {
     firebase: fbConfig,
     config: rrfConfig,
     dispatch: store.dispatch,
-    createFirestoreInstance // <- needed if using firestore
+    createFirestoreInstance
 };
 
 ReactDOM.render(<Provider store={store}><ReactReduxFirebaseProvider {...rrfProps} ><App/></ReactReduxFirebaseProvider></Provider>, document.getElementById('root'));
