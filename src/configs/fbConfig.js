@@ -3,7 +3,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 // Your web app's Firebase configuration
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDFkbnHst23lCNXCmK0JCyR6g_xTpBLcCg",
     authDomain: "ps-news-72a8a.firebaseapp.com",
     databaseURL: "https://ps-news-72a8a.firebaseio.com",
